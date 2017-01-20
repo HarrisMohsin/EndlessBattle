@@ -1,6 +1,6 @@
 # EndlessBattle
 
 ## authors
- - 
+ - Harris
  - 
 
