@@ -1,1 +1,6 @@
 # EndlessBattle
+
+## authors
+ - 
+ - 
+
