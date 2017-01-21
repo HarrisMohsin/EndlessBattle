@@ -7,3 +7,9 @@ int playerhealth
 int enemyhealth
 int playerattackpower
 int enemyattackpower
+
+int main void () {
+printf("
+
+}
+
