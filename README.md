@@ -9,23 +9,20 @@ This is a text interface game in which players spawn and are immediately faced w
 When a player selects their move, they will always execute first, and the CPU will always execute afterwards. The CPU has no access to items, and can only attack using 4 preset moves or use healing abilities on itself. When the CPU opponent is defeated, a new one will immediately spawn. Each CPU opponent will have a random quantity of health points greater than 50% but no greater than 200% of the player's starting health point total. Attack power is randomized with certain moves having a larger range of damage with others having a smaller range of damage, thereby making some attacks high-risk, high-reward. The player and the CPU will have the same attacks with the same base power, meaning that the player will generally be outmatched when their opponent spawns with greater hp than themselves, but will have the advantage when the opponent spawns with less hp than themselves. Items will serve as the equalizer when players are fighting opponents with greater hp totals than themselves, with certain rare items having the ability to dispatch opponents immediately. When the player loses all health points, the game ends, and the total number of defeated opponents represents their high score.   
 ## Design
 Datatypes:
-string - playername - player's name
-int - playerhealth - User's hp total
-int - enemyhealth - CPU's hp total
-arr - attackpower - attack power of moves
-int - healpower - healing power of abilities
-int - item - type of item that player obtains
-int - score - number of opponenets defeated by player (final highscore)
-int - itemheal - healing power of items
-int - attackboost - attack boosting items
+* string - playername - player's name
+* int - playerhealth - User's hp total
+* int - enemyhealth - CPU's hp total
+* arr - attackpower - attack power of moves
+* int - healpower - healing power of abilities
+* int - score - number of opponenets defeated by player (final highscore)
 
-* int array player_dmgitems - array of dmgitem id's held by player
-* int array player_boostitems - array of boostitem id's held by player
-* int array player_healitems - array of healitem id's held by player
+* int arr - player_dmgitems - array of dmgitem id's held by player
+* int arr - player_boostitems - array of boostitem id's held by player
+* int arr - player_healitems - array of healitem id's held by player
 
-* int array dmgitem_effects - an item with id==i deals `dmgitem_effects[i]` damage
-* int array boostitem_effects - an item with id==i boosts attack by `boostitem_effects[i]`
-* int array healitem_effects - an item with id==i heals `healitem_effects[i]` health
+* int arr - dmgitem_effects - an item with id==i deals `dmgitem_effects[i]` damage
+* int arr - boostitem_effects - an item with id==i boosts attack by `boostitem_effects[i]`
+* int arr - healitem_effects - an item with id==i heals `healitem_effects[i]` health
 
 * string array dmgitem_name - an item with id==i has name`dmgitem_effects[i]`
 * string array boostitem_name - an item with id==i has name `boostitem_effects[i]`
