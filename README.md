@@ -12,7 +12,7 @@ Datatypes:
 string - playername - player's name
 int - playerhealth - User's hp total
 int - enemyhealth - CPU's hp total
-int - attackpower - attack power of moves
+arr - attackpower - attack power of moves
 int - healpower - healing power of abilities
 int - item - type of item that player obtains
 int - score - number of opponenets defeated by player (final highscore)
