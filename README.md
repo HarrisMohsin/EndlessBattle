@@ -17,7 +17,7 @@ int - healpower - healing power of abilities
 int - item - type of item that player obtains
 int - score - number of opponenets defeated by player (final highscore)
 int - itemheal - healing power of items
-int
+int - attackboost - attack boosting items
 
 * int array player_dmgitems - array of dmgitem id's held by player
 * int array player_boostitems - array of boostitem id's held by player
