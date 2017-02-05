@@ -19,6 +19,19 @@ int - score - number of opponenets defeated by player (final highscore)
 int - itemheal - healing power of items
 int
 
+* int array player_dmgitems - array of dmgitem id's held by player
+* int array player_boostitems - array of boostitem id's held by player
+* int array player_healitems - array of healitem id's held by player
+
+* int array dmgitem_effects - an item with id==i deals `dmgitem_effects[i]` damage
+* int array boostitem_effects - an item with id==i boosts attack by `boostitem_effects[i]`
+* int array healitem_effects - an item with id==i heals `healitem_effects[i]` health
+
+* string array dmgitem_name - an item with id==i has name`dmgitem_effects[i]`
+* string array boostitem_name - an item with id==i has name `boostitem_effects[i]`
+* string array healitem_name - an item with id==i has name `healitem_effects[i]`
+
+
 ## Authors
  - Harris
  - 
