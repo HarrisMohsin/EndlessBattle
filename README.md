@@ -9,12 +9,14 @@ This is a text inteferace game in which players spawn and are immediately faced 
 When a player selects their move, they will always execute first, and the CPU will always execute afterwards. The CPU has no access to items, and can only attack using 4 preset moves or use healing abilities on itself. When the CPU opponent is defeated, a new one will immediately spawn. Each CPU opponent will have a random quantity of health points greater than 50% but no greater than 200% of the player's starting health point total. Attack power is randomized with certain moves having a larger range of damage with others having a smaller range of damage, thereby making some attacks high-risk, high-reward. The player and the CPU will have the same attacks with the same base power, meaning that the player will generally be outmatched when their opponent spawns with greater hp than themselves, but will have the advantage when the opponent spawns with less hp than themselves. Items will serve as the equalizer when players are fighting opponents with greater hp totals than themselves, with certain rare items having the ability to dispatch oppoennts immediately. When the player loses all health points, the game ends, and the total number of defeated opponents represents their high score.   
 ## Design
 Datatypes:
-string - 
+string - playername - player's name
 int - playerhealth - User's hp total
 int - enemyhealth - CPU's hp total
 int - attackpower - attack power of moves
-int - healpower - healing power of moves
-
+int - healpower - healing power of abilities
+int - item - type of item that player obtains
+int - score - number of opponenets defeated by player (final highscore)
+int - itemheal - healig power of items
 
 ## Authors
  - Harris
