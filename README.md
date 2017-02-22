@@ -30,6 +30,9 @@ When a player selects their move, they will always execute first, and the CPU wi
 * string array boostitem_names - an item with id==i has name `boostitem_names[i]`
 * string array healitem_names - an item with id==i has name `healitem_names[i]`
 
+####Diagram
+[See EndlessBattleDia.pdf](EndlessBattleDia.pdf)
+
 
 ## Authors
  - Harris
