@@ -1,6 +1,30 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<strings.h>
+#include<time.h>
 
+/*Variables
+char* playername;
+int playerhealth;
+int enemyhealth;
+int playerattackpower;
+int enemyattackpower;
+int healpower;
+int score;
+int* player_boostitems;
+int* player_healitems;
+int* player_dmgitems; 
+int* boostitem_effects;
+int* healitem_effects;
+int* dmgitem_effects;
+char* dmgitem_names;
+char* boostitem_names;
+char* healitem_names;
+*/
+int print_description();
+int randrange(int min, int max);
+
+int main (void) {
 //Variables//
 char* playername;
 int playerhealth;
@@ -19,12 +43,9 @@ char* dmgitem_names;
 char* boostitem_names;
 char* healitem_names;
 
-int print_description();
-
-int main (void) {
-
 char buffer[256];
 int startinput;
+
 
 
 printf("Welcome to EndlessBattle!\n");
@@ -41,12 +62,18 @@ while (1==1) {
 		printf("Try again bro...\n");
 		
 	}
-	if (startinput == 0) {
+	else if (startinput == 0) {
 		print_description();
 	}
-	if (startinput == 1) {
+	else {
 		break;
 	}
+	//Prompt for name//
+	printf("What is your name");
+	fgets(buffer, 255, stdin);
+	playername = strdup(buffer);
+	printf("Hello, %s ", playername);
+	// 
 }
 }
 int print_description() {
@@ -57,10 +84,10 @@ involves two combatants, the player and a CPU opponent. There is no way to \n\
 defeated in a row before a player loses all health points. During each battle,\n\
 \n a player has four options: \n\
   * 1) Fight using 4 preset moves. \n\
-  * 2) Use healing abilities on oneself. \n \
+  * 2) Use healing abilities on oneself. \n\
   * 3) Randomly obtain 1 item that will be placed in the bag (examples include healing \n\
 	items, attack boost items, useless dummy items, and powerful bomb items). \n \
-  * 4) Use an item that is in the bag.\n \
+  * 4) Use an item that is in the bag.\n\
 \
 When a player selects their move, they will always execute first, and the CPU will always \n\
 execute afterwards. The CPU has no access to items, and can only attack using 4 preset \n\
@@ -76,3 +103,15 @@ but will have the advantage when the opponent spawns with less hp than themselve
 rare items having the ability to dispatch opponents immediately. When the player loses all health points,\n\
  the game ends, and the total number of defeated opponents represents their high score. \n");
 }
+
+int randrange(int min, int max) {
+	
+	ret = rand() % max + min;
+
+	return(ret);
+
+}
+
+
+
+
