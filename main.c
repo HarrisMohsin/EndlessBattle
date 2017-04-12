@@ -68,13 +68,17 @@ while (1==1) {
 	else {
 		break;
 	}
-	//Prompt for name//
-	printf("What is your name");
-	fgets(buffer, 255, stdin);
-	playername = strdup(buffer);
-	printf("Hello, %s ", playername);
-	// 
-}
+	
+}  //close input while loop
+
+//Prompt for name//
+printf("What is your name: ");
+fgets(buffer, 255, stdin);
+playername = strdup(buffer);
+printf("Hello, %s ", playername);
+
+// 
+
 }
 int print_description() {
 	printf("This is a text interface game in which players spawn and are immediately \n\
