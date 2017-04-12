@@ -106,7 +106,7 @@ rare items having the ability to dispatch opponents immediately. When the player
 
 int randrange(int min, int max) {
 	
-	ret = rand() % max + min;
+	int ret = rand() % (max-min) + min;
 
 	return(ret);
 
