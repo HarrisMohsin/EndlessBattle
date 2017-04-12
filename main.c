@@ -39,9 +39,9 @@ int* player_dmgitems;
 int* boostitem_effects;
 int* healitem_effects;
 int* dmgitem_effects;
-char* dmgitem_names;
-char* boostitem_names;
-char* healitem_names;
+char** dmgitem_names;
+char** boostitem_names;
+char** healitem_names;
 
 char buffer[256];
 int startinput;
@@ -77,7 +77,7 @@ fgets(buffer, 255, stdin);
 playername = strdup(buffer);
 printf("Hello, %s ", playername);
 
-// 
+//
 
 }
 int print_description() {
