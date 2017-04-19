@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<strings.h>
 #include<time.h>
-
+#include"star.h"
 /*Variables
 char* playername;
 int playerhealth;
@@ -42,6 +42,7 @@ int* dmgitem_effects;
 char** dmgitem_names;
 char** boostitem_names;
 char** healitem_names;
+char** star;
 
 char buffer[256];
 int startinput;
@@ -71,6 +72,7 @@ while (1==1) {
 	
 }  //close input while loop
 
+
 //Prompt for name//
 printf("What is your name: ");
 fgets(buffer, 255, stdin);
@@ -78,7 +80,11 @@ playername = strdup(buffer);
 printf("Hello, %s ", playername);
 
 //
-
+//Testing star
+star = new_star();
+star_add(&star, "Hello World");
+print_star(star);
+kill_star(star);
 }
 int print_description() {
 	printf("This is a text interface game in which players spawn and are immediately \n\

@@ -7,7 +7,7 @@
 
 #ifndef _STAR_H_
 #define _STAR_H_ 0
-
+#define print_star(x) star_print(x)
 //allocate new star, set only element to NULL, and return
 char** new_star(void);
 
@@ -19,6 +19,9 @@ void star_print(char** star);
 
 //free all allocated mem
 void kill_star(char** star);
+
+//returns length of the star//
+int star_len(char** star);
 
 #endif
 

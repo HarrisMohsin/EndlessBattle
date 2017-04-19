@@ -7,6 +7,7 @@
 #include"star.h"
 #include<stdlib.h>
 #include<stdio.h>
+#include<strings.h>
 
 //allocate new star, set only element to NULL, and return
 char** new_star(void) {
@@ -28,15 +29,51 @@ return(x);
 }
 	
 //add a new allocated copy of s to star
-void star_add(char*** star, char* s);
+void star_add(char*** starp, char* s){
+	
+	char* copy = strdup(s);
+	
+	int len = star_len(s);
+	
+	*starp=(char**)realloc(*starp,(len+1)*sizeof(char*));
 
+	(*starp)[len] = NULL;
+	
+	(*starp)[len-1] = copy;
+	
+}
 //output string array
-void star_print(char** star);
+void star_print(char** star) {
+	int i;
+	for (i = 0; *star[i] != NULL; i++) {
+
+		printf("%s, %i\n", star[i], i);
+
+	}
+
+}
 
 //free all allocated mem
-void kill_star(char** star);
+void kill_star(char** star) {
+	int i;
+	for (i = 0; *star[i]!=NULL; i++) {
+		
+		free(star[i]);
+	
+	}
+
+	free(star);
+	
+}
 
 //returns length of the star//
-void star_len(char** star);
-
-
+int star_len(char** star) {
+	int i;
+	for (i=0; star[i]!=NULL; i++) {
+	}	
+	return(i+1);
+}
+	
+	
+	
+	
