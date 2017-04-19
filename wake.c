@@ -263,6 +263,7 @@ int main(int argc, char** argv) {
 	*/
 	
 	for(i=recipe->len; i; i--) {
+		printf("wake: calling: %s\n", get_string(recipe,i));
 		if( system( get_string(recipe, i) )!=0 ) {
 			printf("wake: error: %s\n", get_string(recipe,i));
 			exit( EXIT_FAILURE );
