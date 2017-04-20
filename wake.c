@@ -103,7 +103,7 @@ static void add_string(list_t* lp, char* s) {
 static char* get_string(list_t* lp, int i) {
 	
 	struct node* nav;
-	int j;
+	int j=0;
 	
 	//assuming in-bounds
 	if( i==0 ) {
@@ -252,17 +252,17 @@ int main(int argc, char** argv) {
 		}
 	}
 	
-	/*
+	///*
 	//lines extracted
 	printf("printing extrated list:=====================\n");
 	for(i=0; i<recipe->len; i++) {
 		printf("wake: command extracted: %s\n", get_string(recipe,i));
 	}
 	
-	free_list(recipe);
-	*/
+	//free_list(recipe);
+	//*/
 	
-	for(i=recipe->len; i; i--) {
+	for(i=recipe->len-1; i+1; i--) {
 		printf("wake: calling: %s\n", get_string(recipe,i));
 		if( system( get_string(recipe, i) )!=0 ) {
 			printf("wake: error: %s\n", get_string(recipe,i));
@@ -270,6 +270,7 @@ int main(int argc, char** argv) {
 		}
 	}
 	
+	free_list(recipe);
 	printf("wake: exit success\n");
 	return( EXIT_SUCCESS );
 }
