@@ -1,5 +1,12 @@
 # EndlessBattle
 
+## To Do
+ - Make string arrays of items
+
+## Bugs
+ - Doesnt say "Try again bro" after incorrect inputs after input 0
+ - pass wrong arguement to star_len when called in star_add (star_prints fails))
+
 ## Description
 This is a text interface game in which players spawn and are immediately faced with an unending series of battles. Each battle is turn based and involves two combatants, the player and a CPU opponent. There is no way to "beat" the game; high scores are represented by the number of opponents defeated in a row before a player loses all health points. During each battle, a player has four options:
   * 1) Fight using 4 preset moves.
