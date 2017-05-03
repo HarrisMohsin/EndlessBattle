@@ -24,6 +24,9 @@ char* healitem_names;
 int print_description();
 int randrange(int min, int max);
 
+
+
+
 int main (void) {
 //Variables//
 char* playername;
@@ -83,9 +86,17 @@ printf("Hello, %s ", playername);
 //Testing star
 star = new_star();
 star_add(&star, "Hello World");
-print_star(star);
+star_add(&star, "ly84k7c378yr0p8y23r8sy23ryk");
+star_add(&star, "The quick brown fox jumped over the lazy dog.");
+star_print(star);
 kill_star(star);
 }
+
+
+
+
+
+
 int print_description() {
 	printf("This is a text interface game in which players spawn and are immediately \n\
 faced with an unending series of battles. Each battle is turn based and \n\
@@ -121,7 +132,3 @@ int randrange(int min, int max) {
 	return(ret);
 
 }
-
-
-
-
