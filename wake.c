@@ -259,7 +259,7 @@ int main(int argc, char** argv) {
 		printf("wake: command extracted: %s\n", get_string(recipe,i));
 	}
 	
-	//free_list(recipe);
+	//free_list(recipe); return(0);
 	//*/
 	
 	for(i=recipe->len-1; i+1; i--) {
