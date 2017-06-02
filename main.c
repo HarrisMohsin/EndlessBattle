@@ -82,7 +82,13 @@ fgets(buffer, 255, stdin);
 playername = strdup(buffer);
 printf("Hello, %s ", playername);
 
-//
+//Random player stat generation//
+playerhealth = randrange(100,200);
+playerattackpower = randrange(20,50);
+healpower = randrange(10,20);
+
+//Item Database
+
 //Testing star
 star = new_star();
 star_add(&star, "Hello World");
@@ -90,6 +96,9 @@ star_add(&star, "ly84k7c378yr0p8y23r8sy23ryk");
 star_add(&star, "The quick brown fox jumped over the lazy dog.");
 star_print(star);
 kill_star(star);
+
+
+
 }
 
 
