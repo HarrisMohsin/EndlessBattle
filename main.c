@@ -1,33 +1,21 @@
+//EndlessBattle - main.c
+
+//=================headers=================//
 #include<stdio.h>
 #include<stdlib.h>
 #include<strings.h>
 #include<time.h>
 #include"star.h"
-/*Variables
-char* playername;
-int playerhealth;
-int enemyhealth;
-int playerattackpower;
-int enemyattackpower;
-int healpower;
-int score;
-int* player_boostitems;
-int* player_healitems;
-int* player_dmgitems; 
-int* boostitem_effects;
-int* healitem_effects;
-int* dmgitem_effects;
-char* dmgitem_names;
-char* boostitem_names;
-char* healitem_names;
-*/
+
+
+//==========function prototypes============//
 int print_description();
 int randrange(int min, int max);
 
 
-
-
+//=============main function===============//
 int main (void) {
+
 //Variables//
 char* playername;
 int playerhealth;
@@ -50,8 +38,7 @@ char** star;
 char buffer[256];
 int startinput;
 
-
-
+//Game Setup//
 printf("Welcome to EndlessBattle!\n");
 while (1==1) {
 	
@@ -82,13 +69,17 @@ fgets(buffer, 255, stdin);
 playername = strdup(buffer);
 printf("Hello, %s ", playername);
 
+
 //Random player stat generation//
 playerhealth = randrange(100,200);
 playerattackpower = randrange(20,50);
 healpower = randrange(10,20);
 
-//Item Database
+//Item Database//
+//!!!! CONTINUE HERE
 
+/*
+Test - success
 //Testing star
 star = new_star();
 star_add(&star, "Hello World");
@@ -96,15 +87,16 @@ star_add(&star, "ly84k7c378yr0p8y23r8sy23ryk");
 star_add(&star, "The quick brown fox jumped over the lazy dog.");
 star_print(star);
 kill_star(star);
+*/
+
+return(0);
+
+} //close main function
 
 
 
-}
 
-
-
-
-
+//========function definitions=============//
 
 int print_description() {
 	printf("This is a text interface game in which players spawn and are immediately \n\
