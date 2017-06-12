@@ -76,7 +76,38 @@ playerattackpower = randrange(20,50);
 healpower = randrange(10,20);
 
 //Item Database//
-//!!!! CONTINUE HERE
+boostitem_names = new_star();
+star_add( &boostitem_names, “calcium”);
+boostitem_effects[0] = 10;
+
+star_add( &boostitem_names, “proteins”);
+boostitem_effects[1] = 30;
+
+star_add( &boostitem_names, “adrenaline”);
+boostitem_effects[2] = 100;
+
+healitem_names = new_star();
+star_add( &healitem_names, “beer”);
+healitem_effects[0] = 10;
+
+star_add( &healitem_names, “milk”);
+healitem_effects[1] = 15;
+
+star_add( &healitem_names, “vodka”);
+healitem_effects[2] = 50;
+
+dmgitem_names = new_star();
+star_add( &dmgitem_names, “grenade”);
+dmgitem_effects[0] = 15;
+
+star_add( &dmgitem_names, “artillery”);
+dmgitem_effects[1] = 50;
+
+star_add( &dmgitem_names, “uranium”);
+dmgitem_effects[2] = 150;
+
+
+
 
 /*
 Test - success
