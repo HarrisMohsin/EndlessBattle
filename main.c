@@ -9,7 +9,7 @@
 
 
 //==========function prototypes============//
-int print_description();
+void print_description();
 int randrange(int min, int max);
 
 
@@ -129,7 +129,7 @@ return(0);
 
 //========function definitions=============//
 
-int print_description() {
+void print_description() {
 	printf("This is a text interface game in which players spawn and are immediately \n\
 faced with an unending series of battles. Each battle is turn based and \n\
 involves two combatants, the player and a CPU opponent. There is no way to \n\
@@ -146,7 +146,7 @@ When a player selects their move, they will always execute first, and the CPU wi
 execute afterwards. The CPU has no access to items, and can only attack using 4 preset \n\
 moves or use healing abilities on itself. When the CPU opponent is defeated, a new one \n\
 will immediately spawn. Each CPU opponent will have a random quantity of health points \n\
-greater than 50% but no greater than 200% of the player's starting health point total. \n\
+greater than 50%% but no greater than 200%% of the player's starting health point total. \n\
 Attack power is randomized with certain moves having a larger range of damage with others \n\
 having a smaller range of damage, thereby making some attacks high-risk, high-reward. The \n\
 player and the CPU will have the same attacks with the same base power, meaning that the \n\

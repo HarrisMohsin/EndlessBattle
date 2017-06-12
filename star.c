@@ -33,7 +33,7 @@ void star_add(char*** starp, char* s){
 	fprintf(stderr, "STAR ADD CALLED\n");	
 	char* copy = strdup(s);
 	
-	int len = star_len(s);
+	int len = star_len(*starp);
 	
 	*starp=(char**)realloc(*starp,(len+1)*sizeof(char*));
 
