@@ -1,8 +1,11 @@
 # EndlessBattle
 
 ## To Do
- - Make string arrays of items
-
+ - make item obtain function
+ - make combat function
+     - 1st param is playerhealth
+     -
+     - local variables - 4 attacks, 1 heal move 
 ## Bugs
  - Doesnt say "Try again bro" after incorrect inputs after input 0
 
