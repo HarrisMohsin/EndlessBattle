@@ -1,4 +1,12 @@
 //EndlessBattle - main.c
+/* Notes
+
+Item management setup:
+player_items[BOOST][1] ==> n 
+items name: boostitem_names[n]
+effect: boostitem_effects[n]
+if n == -1, then no item
+ */
 
 //=================headers=================//
 #include<stdio.h>
@@ -7,10 +15,30 @@
 #include<time.h>
 #include"star.h"
 
+//==============global vars================//
+int boostitem_effects[3];
+int healitem_effects[3];
+int dmgitem_effects[3];
+char** dmgitem_names;
+char** boostitem_names;
+char** healitem_names;
+
 
 //==========function prototypes============//
 void print_description();
 int randrange(int min, int max);
+
+//returns 1 if dead, otherwise 0
+int battle( int* playerhealth_p, int** player_items, int healpower );
+
+//give random item
+void obtain_item(player_items);
+
+
+//macros
+#define BOOST 0
+#define HEAL  1
+#define DMG   2
 
 
 //=============main function===============//
@@ -19,21 +47,14 @@ int main (void) {
 //Variables//
 char* playername;
 int playerhealth;
-int enemyhealth;
-int playerattackpower;
-int enemyattackpower;
+//int enemyhealth;        //local to battle
+//int playerattackpower;  //local to battle function
+//int enemyattackpower;   //local to battle()
 int healpower;
 int score;
-int player_boostitems[5];
-int player_healitems[5];
-int player_dmgitems[5]; 
-int boostitem_effects[3];
-int healitem_effects[3];
-int dmgitem_effects[3];
-char** dmgitem_names;
-char** boostitem_names;
-char** healitem_names;
-char** star;
+
+int player_items[3][5]; //1st row boost items; 2nd heal; 3rd dmgitems 
+
 
 char buffer[256];
 int startinput;
@@ -162,5 +183,21 @@ int randrange(int min, int max) {
 	int ret = rand() % (max-min) + min;
 
 	return(ret);
+ 
+}
 
+int battle( int* playerhealth_p, int** player_items, int healpower ) {
+	
+	int enemyhealth;
+	int playerattackpower;
+	int enemyattackpower;
+
+	//add player moves...
+	
+}
+
+void obtain_item(player_items) {
+	
+	
+	
 }
