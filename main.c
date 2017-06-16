@@ -98,37 +98,34 @@ healpower = randrange(10,20);
 
 //Item Database//
 boostitem_names = new_star();
-star_add( &boostitem_names, “calcium”);
+star_add( &boostitem_names, "calcium");
 boostitem_effects[0] = 10;
 
-star_add( &boostitem_names, “proteins”);
+star_add( &boostitem_names, "proteins");
 boostitem_effects[1] = 30;
 
-star_add( &boostitem_names, “adrenaline”);
+star_add( &boostitem_names, "adrenaline");
 boostitem_effects[2] = 100;
 
 healitem_names = new_star();
-star_add( &healitem_names, “beer”);
+star_add( &healitem_names, "beer");
 healitem_effects[0] = 10;
 
-star_add( &healitem_names, “milk”);
+star_add( &healitem_names, "milk");
 healitem_effects[1] = 15;
 
-star_add( &healitem_names, “vodka”);
+star_add( &healitem_names, "vodka");
 healitem_effects[2] = 50;
 
 dmgitem_names = new_star();
-star_add( &dmgitem_names, “grenade”);
+star_add( &dmgitem_names, "grenade");
 dmgitem_effects[0] = 15;
 
-star_add( &dmgitem_names, “artillery”);
+star_add( &dmgitem_names, "artillery");
 dmgitem_effects[1] = 50;
 
-star_add( &dmgitem_names, “uranium”);
+star_add( &dmgitem_names, "uranium");
 dmgitem_effects[2] = 150;
-
-
-
 
 /*
 Test - success
@@ -186,16 +183,52 @@ int randrange(int min, int max) {
  
 }
 
-int battle( int* playerhealth_p, int** player_items, int healpower ) {
+
+int battle( int* playerhealth_p, int** player_items, int healpower, int playerattackpower ) {
 	
 	int enemyhealth;
+	char* playerdecision;
+		char move[] = "attack";
+		char move[] = "use item";
+		char move[] = "get item";
+		char move[] = "heal";
+		char move[] = "crushattack";
+		char move[] = "stabattack";
+		char move[] = "slashattack";
+		char move[] = "swingattack";
 	int playerattackpower;
 	int enemyattackpower;
-
-	//add player moves...
+	// 4 Attacks //
+	int crushattack;
+	int stabattack;
+	int slashattack;
+	int swingattack;
+	//Player obtains item//
+	//player uses item//
 	
-}
+	printf("Battle has begun");
+	while (enemyhealth >= 0 && playerhealth >= 0) {
+		
+		fgets(buffer, 255, stdin);
 
+		sscanf(buffer, "%i", &playerdecision); 
+		
+		if playerdecision == attack;
+			if( playerdecision == crushattack )
+				enemyhealth == enemyhealth - playerattackpower*.65+14;
+			if( playerdecision == stabattack )
+				enemyhealth == enemyhealth - playerattackpower*.55+18;
+			if( playerdecision == slashattack )
+				enemyhealth == enemyhealth - playerattackpower*.75+10;
+			if( playerdecision == swingattack )
+				enemyhealth == enemyhealth - playerattackpower*.80+8;
+	}
+
+	
+	
+}  //close battle function
+
+<<<<<<< HEAD
 //randomly adds item to player inventory
 //prints item obtained to screen
 //equal chance of getting anything
@@ -233,7 +266,7 @@ void obtain_item(int** player_items, int first_call) {
 		item_type = DMG;
 		to_obtain = rand()%3;  //0=granade,1=artillery,2=uranium
 	}
-	
+
 	//search for empty spot
 	for(i=0; i<5; i++) {
 		if( player_item[item_type][i]==-1 ) {
