@@ -32,7 +32,7 @@ int randrange(int min, int max);
 int battle( int* playerhealth_p, int** player_items, int healpower );
 
 //give random item
-void obtain_item(player_items);
+void obtain_item(int** player_items, int first_call);
 
 
 //macros
@@ -53,8 +53,8 @@ int playerhealth;
 int healpower;
 int score;
 
-int player_items[3][5]; //1st row boost items; 2nd heal; 3rd dmgitems 
 
+int player_items[3][5]; //1st row boost items; 2nd heal; 3rd dmgitems 
 
 char buffer[256];
 int startinput;
@@ -196,8 +196,68 @@ int battle( int* playerhealth_p, int** player_items, int healpower ) {
 	
 }
 
-void obtain_item(player_items) {
+//randomly adds item to player inventory
+//prints item obtained to screen
+//equal chance of getting anything
+//if first time calling function, make first_call = 1; otherwise 0
+void obtain_item(int** player_items, int first_call) {
 	
+	int pc_boost_item = 33;
+	int pc_heal_item = 33;
+	//chance_dmg_item = 1 - chance_boost_item - chance_heal_item
+
+	int r = randrange(0,100);
+	int to_obtain;
+	int item_type;
+	int obtained = 0;
+	int i, j;
 	
+	if( first_call ) {
+		for(i=0; i<3; i++) {
+			for(j=0; j<5; j++) {
+				player_item[i][j] = -1;
+			}
+		}
+	}
+	
+	//generate item
+	if( r<pc_boost_item ) {
+		item_type = BOOST;
+		to_obtain = rand()%3;  //0=calcium,1=proteins,2=adrenaline, 
+	}
+	else if( r<(pc_boost_item + pc_heal_item) ) {
+		item_type = HEAL;
+		to_obtain = rand()%3;  //0=beer,1=milk,2=vodka
+	}
+	else {
+		item_type = DMG;
+		to_obtain = rand()%3;  //0=granade,1=artillery,2=uranium
+	}
+	
+	//search for empty spot
+	for(i=0; i<5; i++) {
+		if( player_item[item_type][i]==-1 ) {
+			player_item[item_type][i] = to_obtain;
+			switch(item_type) {
+				case BOOST:
+					printf("Player obtained %s!\n", boostitem_names[to_obtain]);
+					break;  //exits switch-case
+				case HEAL:
+					printf("Player obtained %s!\n", healitem_names[to_obtain]);
+					break;  //exits switch
+				case DMG:
+					printf("Player obtained %s!\n", dmgitem_names[to_obtain]);
+					break;  //exits switch
+				default:
+					break;  //exists switch
+			}
+			obtained = 1;
+			break;  //exits for-loop
+		}
+	}
+	
+	if( !obtained ) {  //inventory was full
+		printf("Your inventory is already full! Too bad.\n");
+	}
 	
 }
