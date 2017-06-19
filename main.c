@@ -29,7 +29,7 @@ void print_description();
 int randrange(int min, int max);
 
 //returns 1 if dead, otherwise 0
-int battle( int* playerhealth_p, int** player_items, int healpower );
+int battle( int* playerhealth_p, int** player_items, int healpower, int patkpower );
 
 //give random item
 void obtain_item(int** player_items, int first_call);
