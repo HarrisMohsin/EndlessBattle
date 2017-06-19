@@ -191,6 +191,7 @@ int randrange(int min, int max) {
 int battle( int* playerhealth_p, int** player_items, int healpower, int playerattackpower ) {
 	
 	int enemyhealth;
+	int enemyattackpower;
 	char* playerdecision;
 	int arr[] = {1, 
 				2, 
@@ -218,6 +219,7 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 	//Player obtains item//
 	//player uses item//
 	
+	enemyhealth = randrange(playerhealth*.5,playerhealth*2);
 	printf("Battle has begun");
 	while (enemyhealth >= 0 && playerhealth >= 0) {
 		
@@ -238,31 +240,45 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 				autocomplete = (int)(p-buffer) - 1;
 			}
 			if( strncmp("crushattack",buffer,autocomplete)==0 ) {
-				enemyhealth == enemyhealth - playerattackpower*.65+14;
+				enemyhealth = enemyhealth - playerattackpower*.65+14;
 			}
 			else if( strncmp("stabattack",buffer,autocomplete)==0 ) {
-				enemyhealth == enemyhealth - playerattackpower*.55+18;
+				enemyhealth = enemyhealth - playerattackpower*.55+18;
 			}
 			else if( strncmp("slashattack",buffer,autocomplete)==0 ) {
-				enemyhealth == enemyhealth - playerattackpower*.75+10;
+				enemyhealth = enemyhealth - playerattackpower*.75+10;
 			}
 			else if( strncmp("swingattack",buffer,autocomplete)==0 ) {
-				enemyhealth == enemyhealth - playerattackpower*.80+8;
+				enemyhealth = enemyhealth - playerattackpower*.80+8;
 			}
 		}
 		else if( strncmp("use item",buffer,autocomplete)==0 ) {
-			
+			 printf("Player selected use item");
+			 print_inv(player_items);
 		}
 		else if( strncmp("get item",buffer,autocomplete)==0 ) {
 			
 		}
 		else if( strncmp("heal",buffer,autocomplete)==0 ) {
-			
+			playerhealth = playerhealth + (.2*healpower);
 		}
 		
 		else (
-		
+		//Player enters incorrect input
 		}
+		
+		if (enemyhealth<=0) {
+			break;
+		}
+			
+		//ENEMY ATTACKS THE PLAYER
+		enemyattackpower = playerattackpower;
+		playerhealth = playerhealth - (enemyattackpower*.7);
+		
+		if (playerhealth<=0) {
+				return 1;
+		}
+		
 	}
 
 	
@@ -288,7 +304,7 @@ void obtain_item(int** player_items, int first_call) {
 	if( first_call ) {
 		for(i=0; i<3; i++) {
 			for(j=0; j<5; j++) {
-				player_item[i][j] = -1;
+				player_items[i][j] = -1;
 			}
 		}
 	}
@@ -309,8 +325,8 @@ void obtain_item(int** player_items, int first_call) {
 
 	//search for empty spot
 	for(i=0; i<5; i++) {
-		if( player_item[item_type][i]==-1 ) {
-			player_item[item_type][i] = to_obtain;
+		if( player_items[item_type][i]==-1 ) {
+			player_items[item_type][i] = to_obtain;
 			switch(item_type) {
 				case BOOST:
 					printf("Player obtained %s!\n", boostitem_names[to_obtain]);
