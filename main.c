@@ -34,6 +34,10 @@ int battle( int* playerhealth_p, int** player_items, int healpower );
 //give random item
 void obtain_item(int** player_items, int first_call);
 
+//print all items in player bag
+void print_inv(int** player_items);
+
+void use_item(char* input, int** player_items, int* phealth, int* ehealth, int* patk);
 
 //macros
 #define BOOST 0
@@ -188,14 +192,19 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 	
 	int enemyhealth;
 	char* playerdecision;
-		char move[] = "attack";
-		char move[] = "use item";
-		char move[] = "get item";
-		char move[] = "heal";
-		char move[] = "crushattack";
-		char move[] = "stabattack";
-		char move[] = "slashattack";
-		char move[] = "swingattack";
+	int arr[] = {1, 
+				2, 
+				3}
+	const char const moves[][] = { 
+		"attack",
+		"use item",
+		"get item",
+		 "heal",
+		 "crushattack",
+		 "stabattack",
+		 "slashattack",
+		 "swingattack"
+		};
 	int playerattackpower;
 	int enemyattackpower;
 	// 4 Attacks //
@@ -203,32 +212,63 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 	int stabattack;
 	int slashattack;
 	int swingattack;
+	char* p;
+	int autocomplete
+	
 	//Player obtains item//
 	//player uses item//
 	
 	printf("Battle has begun");
 	while (enemyhealth >= 0 && playerhealth >= 0) {
 		
+		printf("Choose a move\n");
 		fgets(buffer, 255, stdin);
-
-		sscanf(buffer, "%i", &playerdecision); 
+		*strchr(buffer,'\n') = '\0';
+		if( strchr(buffer,'*')!=NULL ) {
+			p = strchr(buffer, '*');
+			autocomplete = (int)(p-buffer) - 1;
+		}
 		
-		if playerdecision == attack;
-			if( playerdecision == crushattack )
+		if( strcmp("attack",buffer)==0 ) {
+			printf("Choose an attack\n");
+			fgets(buffer, 255, stdin);
+			*strchr(buffer,'\n') = '\0';
+			if( strchr(buffer,'*')!=NULL ) {
+				p = strchr(buffer, '*');
+				autocomplete = (int)(p-buffer) - 1;
+			}
+			if( strncmp("crushattack",buffer,autocomplete)==0 ) {
 				enemyhealth == enemyhealth - playerattackpower*.65+14;
-			if( playerdecision == stabattack )
+			}
+			else if( strncmp("stabattack",buffer,autocomplete)==0 ) {
 				enemyhealth == enemyhealth - playerattackpower*.55+18;
-			if( playerdecision == slashattack )
+			}
+			else if( strncmp("slashattack",buffer,autocomplete)==0 ) {
 				enemyhealth == enemyhealth - playerattackpower*.75+10;
-			if( playerdecision == swingattack )
+			}
+			else if( strncmp("swingattack",buffer,autocomplete)==0 ) {
 				enemyhealth == enemyhealth - playerattackpower*.80+8;
+			}
+		}
+		else if( strncmp("use item",buffer,autocomplete)==0 ) {
+			
+		}
+		else if( strncmp("get item",buffer,autocomplete)==0 ) {
+			
+		}
+		else if( strncmp("heal",buffer,autocomplete)==0 ) {
+			
+		}
+		
+		else (
+		
+		}
 	}
 
 	
 	
 }  //close battle function
 
-<<<<<<< HEAD
 //randomly adds item to player inventory
 //prints item obtained to screen
 //equal chance of getting anything
