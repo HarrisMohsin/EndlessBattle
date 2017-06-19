@@ -37,7 +37,7 @@ void obtain_item(int** player_items, int first_call);
 //print all items in player bag
 void print_inv(int** player_items);
 
-void use_item(char* input, int** player_items, int* phealth, int* ehealth, int* patk);
+void use_item(char* input, int autocomplete, int** player_items, int* phealth, int* ehealth, int* patk);
 
 //macros
 #define BOOST 0
@@ -334,3 +334,83 @@ void obtain_item(int** player_items, int first_call) {
 	}
 	
 }
+
+//print all items in player bag
+void print_inv(int** player_items) {
+	int i, j;
+	
+	for(i=0; i<3; i++) {
+		for(j=0; j<5; j++) {
+			if( player_items[i][j]!=-1 ) {
+				switch(i) {
+					case BOOST:
+						printf("%s\n", boostitem_names[ player_items[i][j] ]);
+						break;
+					case HEAL:
+						printf("%s\n", healitem_names[ player_items[i][j] ]);
+						break;
+					case DMG:
+						printf("%s\n", dmgitem_names[ player_items[i][j] ]);
+						break;
+					default:
+						break;
+				} //close switch
+			}  //close if
+		}  //close inner for-loop
+	}   //close outer for-loop
+}
+
+void use_item(char* input, int autocomplete, int** player_items, int* phealth, int* ehealth, int* patk) {
+	
+	int i, j;
+	int item;
+	int resolved = 0;
+	
+	for(i=0; i<3; i++) {
+		for(j=0; j<5; j++) {
+			if( (player_items[i][j]!=-1) ) {
+				item = player_items[i][j];
+				switch(i) {
+					case BOOST:
+						if( strncmp(boostitem_names[item],input,autocomplete)==0 ) {
+							player_items[i][j] = -1;
+							*patk = *patk + boostitem_effects[item];
+							printf("Player injected some %s!\n", boostitem_names[item]);
+							printf("The power nutrition empowers you!\n")
+							printf("Attack boosted by %i.\n", boostitem_effects[item]);
+							resolved = 1;
+						}
+						break;
+					case HEAL:
+						if( strncmp(healitem_names[item],input,autocomplete)==0 ) {
+							player_items[i][j] = -1;
+							*phealth = *phealth + healitem_effects[item];
+							printf("Player drank some %s!\n", healitem_names[item]);
+							printf("You can feel drugs numbing the pain.\n")
+							printf("Health restored by %i.\n", healitem_effects[item]);
+							resolved = 1;
+						}
+						break;
+					case DMG:
+						if( strncmp(dmgitem_names[item],input,autocomplete)==0 ) {
+							player_items[i][j] = -1;
+							*ehealth = *ehealth + dmgitem_effects[item];
+							printf("Player fired some %s!\n", dmgitem_names[item]);
+							printf("The enemy explodes!\n")
+							printf("Enemy lost %i health.\n", healitem_effects[item]);
+							resolved = 1;
+						}
+						break;
+					default:
+						break;
+				}
+			}
+			if( resolved ) {
+				break;  //end loop
+			}
+		}
+	}
+	
+}
+
+
