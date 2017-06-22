@@ -6,6 +6,8 @@ player_items[BOOST][1] ==> n
 items name: boostitem_names[n]
 effect: boostitem_effects[n]
 if n == -1, then no item
+
+REMOVING STAR
  */
 
 //=================headers=================//
@@ -13,15 +15,15 @@ if n == -1, then no item
 #include<stdlib.h>
 #include<strings.h>
 #include<time.h>
-#include"star.h"
+//#include"star.h"
 
 //==============global vars================//
 int boostitem_effects[3];
 int healitem_effects[3];
 int dmgitem_effects[3];
-char** dmgitem_names;
-char** boostitem_names;
-char** healitem_names;
+const char* const dmgitem_names[] = {"grenade", "artillery","uranium"};
+const char* const boostitem_names[] = {"calcium", "proteins",  "adrenaline"};
+const char* const healitem_names[] = {"beer", "milk", "vodka"};
 
 
 //==========function prototypes============//
@@ -29,15 +31,15 @@ void print_description();
 int randrange(int min, int max);
 
 //returns 1 if dead, otherwise 0
-int battle( int* playerhealth_p, int** player_items, int healpower, int patkpower );
+int battle( int* playerhealth_p, int player_items[3][3], int healpower, int patkpower );
 
 //give random item
-void obtain_item(int** player_items);
+void obtain_item(int player_items[3][3]);
 
 //print all items in player bag
-void print_inv(int** player_items);
+void print_inv(int player_items[3][3]);
 
-void use_item(char* input, int autocomplete, int** player_items, int* phealth, int* ehealth, int* patk);
+void use_item(char* input, int autocomplete, int player_items[3][3], int* phealth, int* ehealth, int* patk);
 
 //macros
 #define BOOST 0
@@ -54,10 +56,12 @@ int playerhealth;
 int playerattackpower;
 int healpower;
 int score;
-int player_items[3][5]; //1st row boost items; 2nd heal; 3rd dmgitems 
+int player_items[3][3]; //1st row boost items; 2nd heal; 3rd dmgitems 
 char buffer[256];
 int startinput;
 int i, j;
+
+srand(time(NULL));
 
 //Game Setup//
 printf("Welcome to EndlessBattle!\n");
@@ -92,46 +96,46 @@ printf("Hello, %s ", playername);
 
 //Item matrix//
 for (i=0; i<=3; i++) {
-	for (j=0; j<=5; j++) {
-		player_items[i][j] =  -1;
+	for (j=0; j<=3; j++) {
+		player_items[i][j] = -1;
 	}
 }
 
 //Random player stat generation//
 playerhealth = randrange(100,200);
 playerattackpower = randrange(20,50);
-healpower = randrange(10,20);
+healpower = randrange(10,50);
 
 //Item Database//
-boostitem_names = new_star();
-star_add( &boostitem_names, "calcium");
+//boostitem_names = new_star();
+//star_add( &boostitem_names, "calcium");
 boostitem_effects[0] = 10;
 
-star_add( &boostitem_names, "proteins");
+//star_add( &boostitem_names, "proteins");
 boostitem_effects[1] = 30;
 
-star_add( &boostitem_names, "adrenaline");
+//star_add( &boostitem_names, "adrenaline");
 boostitem_effects[2] = 100;
 
-healitem_names = new_star();
-star_add( &healitem_names, "beer");
-healitem_effects[0] = 10;
+//healitem_names = new_star();
+//star_add( &healitem_names, "beer");
+healitem_effects[0] = -2;
 
-star_add( &healitem_names, "milk");
-healitem_effects[1] = 15;
+//star_add( &healitem_names, "milk");
+healitem_effects[1] = 20;
 
-star_add( &healitem_names, "vodka");
-healitem_effects[2] = 50;
+//star_add( &healitem_names, "vodka");
+healitem_effects[2] = 100;
 
-dmgitem_names = new_star();
-star_add( &dmgitem_names, "grenade");
-dmgitem_effects[0] = 15;
+//dmgitem_names = new_star();
+//star_add( &dmgitem_names, "grenade");
+dmgitem_effects[0] = 20;
 
-star_add( &dmgitem_names, "artillery");
-dmgitem_effects[1] = 50;
+//star_add( &dmgitem_names, "artillery");
+dmgitem_effects[1] = 75;
 
-star_add( &dmgitem_names, "uranium");
-dmgitem_effects[2] = 150;
+//star_add( &dmgitem_names, "uranium");
+dmgitem_effects[2] = 300;
 
 //Battle!//
 while (1) {
@@ -148,9 +152,9 @@ while (1) {
 	}
 }
 
-kill_star(boostitem_names);
-kill_star(healitem_names);
-kill_star(dmgitem_names);
+//kill_star(boostitem_names);
+//kill_star(healitem_names);
+//kill_star(dmgitem_names);
 return(0);
 
 } //close main function
@@ -194,7 +198,7 @@ int randrange(int min, int max) {
  
 }
 
-int battle( int* playerhealth_p, int** player_items, int healpower, int playerattackpower ) {
+int battle( int* playerhealth_p, int player_items[3][3], int healpower, int playerattackpower ) {
 	
 	int enemyhealth;
 	int enemyattackpower;
@@ -213,15 +217,22 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 	char buffer[256];
 	char* p;
 	int autocomplete;
-	
+	int damage;
+	int regain;
 	//Player obtains item//
 	//player uses item//
 	
 	enemyhealth = randrange(playerhealth*.5,playerhealth*2);
-	printf("Battle has begun");
+	enemyattackpower = playerattackpower*.5;
+	
+	printf("Battle has begun\n");
 	while (enemyhealth >= 0 && playerhealth >= 0) {
 		
+		printf("Player health:%i\n", playerhealth);
+		printf("Enemy health:%i\n", enemyhealth);
+		
 		printf("Choose a move\n");
+		printf("\tattack\n\tget item\n\tuse item\n\theal\n");
 		fgets(buffer, 255, stdin);
 		*strchr(buffer,'\n') = '\0';
 		if( strchr(buffer,'*')!=NULL ) {
@@ -234,27 +245,42 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 		
 		if( strncmp("attack",buffer,autocomplete)==0 ) {
 			printf("Choose an attack\n");
+			printf("\tcrushattack\n\tstabattack\n\tslashattack\n\tswingattack\n");
+			
 			fgets(buffer, 255, stdin);
 			*strchr(buffer,'\n') = '\0';
 			if( strchr(buffer,'*')!=NULL ) {
 				p = strchr(buffer, '*');
 				autocomplete = (int)(p-buffer) - 1;
 			}
+			
 			if( strncmp("crushattack",buffer,autocomplete)==0 ) {
-				enemyhealth = enemyhealth - playerattackpower*.65+14;
+				damage = playerattackpower*.65+14;
+				enemyhealth = enemyhealth - damage;
+				printf("You used crushattack, inflicting %i damage\n", damage);
+				printf("The enemy has %i health left\n", enemyhealth);
 			}
 			else if( strncmp("stabattack",buffer,autocomplete)==0 ) {
-				enemyhealth = enemyhealth - playerattackpower*.55+18;
+				damage = playerattackpower*.55+18;
+				enemyhealth = enemyhealth - damage;
+				printf("You used stabattack, inflicting %i damage\n", damage);
+				printf("The enemy has %i health left\n", enemyhealth);
 			}
 			else if( strncmp("slashattack",buffer,autocomplete)==0 ) {
-				enemyhealth = enemyhealth - playerattackpower*.75+10;
+				damage = playerattackpower*.75+12;
+				enemyhealth = enemyhealth - damage;
+				printf("You used slashattack, inflicting %i damage\n", damage);
+				printf("The enemy has %i health left\n", enemyhealth);
 			}
 			else if( strncmp("swingattack",buffer,autocomplete)==0 ) {
-				enemyhealth = enemyhealth - playerattackpower*.80+8;
+				damage = playerattackpower*.85+8;
+				enemyhealth = enemyhealth - damage;
+				printf("You used swingattack, inflicting %i damage\n", damage);
+				printf("The enemy has %i health left\n", enemyhealth);
 			}
 		}
 		else if( strncmp("use item",buffer,autocomplete)==0 ) {
-			printf("Player selected use item");
+			printf("Player selected use item\n");
 			print_inv(player_items);
 			printf("Choose an Item\n");
 			
@@ -274,7 +300,9 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 				obtain_item(player_items);
 		}
 		else if( strncmp("heal",buffer,autocomplete)==0 ) {
-			playerhealth = playerhealth + 0.2*healpower;
+			regain = 0.5*healpower;
+			playerhealth += regain;
+			printf("Player regained %i health\n", regain);
 		}
 		else {
 			printf("Player's confused...\n");
@@ -285,9 +313,8 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 		}
 			
 		//ENEMY ATTACKS THE PLAYER
-		enemyattackpower = playerattackpower*.5;
 		playerhealth = playerhealth - (enemyattackpower*.7);
-		
+		printf("The enemy has attacked you, you now have only %i health points left\n", playerhealth);
 		if (playerhealth<=0) {
 				return(1);
 		}
@@ -302,7 +329,7 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 //prints item obtained to screen
 //equal chance of getting anything
 //if first time calling function, make first_call = 1; otherwise 0
-void obtain_item(int** player_items) {
+void obtain_item(int player_items[3][3]) {
 	
 	int pc_boost_item = 33;
 	int pc_heal_item = 33;
@@ -314,6 +341,16 @@ void obtain_item(int** player_items) {
 	int obtained = 0;
 	int i, j;
 	
+	print_inv(player_items);
+	/*
+	printf("Items:====\n");
+	for(i=0; i<3; i++) {
+		for(j=0; j<3; j++) {
+			printf("%i_", player_items[i][j]);
+		}
+		printf("\n");
+	}
+	*/
 	//generate item
 	if( r<pc_boost_item ) {
 		item_type = BOOST;
@@ -329,7 +366,7 @@ void obtain_item(int** player_items) {
 	}
 
 	//search for empty spot
-	for(i=0; i<5; i++) {
+	for(i=0; i<3; i++) {
 		if( player_items[item_type][i]==-1 ) {
 			player_items[item_type][i] = to_obtain;
 			switch(item_type) {
@@ -343,7 +380,7 @@ void obtain_item(int** player_items) {
 					printf("Player obtained %s!\n", dmgitem_names[to_obtain]);
 					break;  //exits switch
 				default:
-					break;  //exists switch
+					break;  //exits switch
 			}
 			obtained = 1;
 			break;  //exits for-loop
@@ -357,11 +394,11 @@ void obtain_item(int** player_items) {
 }
 
 //print all items in player bag
-void print_inv(int** player_items) {
+void print_inv(int player_items[3][3]) {
 	int i, j;
 	
 	for(i=0; i<3; i++) {
-		for(j=0; j<5; j++) {
+		for(j=0; j<3; j++) {
 			if( player_items[i][j]!=-1 ) {
 				switch(i) {
 					case BOOST:
@@ -381,7 +418,7 @@ void print_inv(int** player_items) {
 	}   //close outer for-loop
 }
 
-void use_item(char* input, int autocomplete, int** player_items, int* phealth, int* ehealth, int* patk) {
+void use_item(char* input, int autocomplete, int player_items[3][3], int* phealth, int* ehealth, int* patk) {
 	
 	int i, j;
 	int item;
@@ -415,10 +452,10 @@ void use_item(char* input, int autocomplete, int** player_items, int* phealth, i
 					case DMG:
 						if( strncmp(dmgitem_names[item],input,autocomplete)==0 ) {
 							player_items[i][j] = -1;
-							*ehealth = *ehealth + dmgitem_effects[item];
+							*ehealth = *ehealth - dmgitem_effects[item];
 							printf("Player fired some %s!\n", dmgitem_names[item]);
 							printf("The enemy explodes!\n");
-							printf("Enemy lost %i health.\n", healitem_effects[item]);
+							printf("Enemy lost %i health.\n", dmgitem_effects[item]);
 							resolved = 1;
 						}
 						break;
