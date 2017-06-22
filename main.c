@@ -93,7 +93,13 @@ printf("What is your name: ");
 fgets(buffer, 255, stdin);
 playername = strdup(buffer);
 printf("Hello, %s ", playername);
-
+//Item matrix//
+ 
+for (i=0; i<=3; i++) {
+	for (j=0; j<=5; j++) {
+		player_items[i][j] =  -1;
+	}
+}
 
 //Random player stat generation//
 playerhealth = randrange(100,200);
@@ -131,18 +137,22 @@ dmgitem_effects[1] = 50;
 star_add( &dmgitem_names, "uranium");
 dmgitem_effects[2] = 150;
 
-/*
-Test - success
-//Testing star
-star = new_star();
-star_add(&star, "Hello World");
-star_add(&star, "ly84k7c378yr0p8y23r8sy23ryk");
-star_add(&star, "The quick brown fox jumped over the lazy dog.");
-star_print(star);
-kill_star(star);
-*/
+while (1) {
+	int is_dead = battle( &playerhealth, player_items, healpower, playerattackpower);
+	if (is_dead == 1) {
+		printf("Your game is over");
+		printf("Your final score is %i", score);
+		break;
+	}
+	else {
+		score++;
+		printf("Your score has increased and is now %i", score);
+		continue;
+	}
+}
 
 return(0);
+
 
 } //close main function
 
@@ -255,9 +265,16 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 		else if( strncmp("use item",buffer,autocomplete)==0 ) {
 			 printf("Player selected use item");
 			 print_inv(player_items);
+			 printf("Choose an Item\n");
+				fgets(buffer, 255, stdin);
+				*strchr(buffer,'\n') = '\0';
+				if( strchr(buffer,'*')!=NULL ) {
+					p = strchr(buffer, '*');
+					autocomplete = (int)(p-buffer) - 1;
+				use_item(&buffer, autocomplete, &player_items, &playerhealth, &enemyhealth, &playerattackpower)'
 		}
 		else if( strncmp("get item",buffer,autocomplete)==0 ) {
-			
+				obtain_item(player_items);
 		}
 		else if( strncmp("heal",buffer,autocomplete)==0 ) {
 			playerhealth = playerhealth + (.2*healpower);
@@ -268,11 +285,11 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 		}
 		
 		if (enemyhealth<=0) {
-			break;
+			return();
 		}
 			
 		//ENEMY ATTACKS THE PLAYER
-		enemyattackpower = playerattackpower;
+		enemyattackpower = playerattackpower*.5;
 		playerhealth = playerhealth - (enemyattackpower*.7);
 		
 		if (playerhealth<=0) {
