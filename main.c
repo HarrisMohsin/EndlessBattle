@@ -32,7 +32,7 @@ int randrange(int min, int max);
 int battle( int* playerhealth_p, int** player_items, int healpower, int patkpower );
 
 //give random item
-void obtain_item(int** player_items, int first_call);
+void obtain_item(int** player_items);
 
 //print all items in player bag
 void print_inv(int** player_items);
@@ -206,7 +206,7 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 		};
 	int playerhealth = *playerhealth_p;
 	char* p;
-	int autocomplete
+	int autocomplete = -1;
 	
 	//Player obtains item//
 	//player uses item//
@@ -222,8 +222,11 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 			p = strchr(buffer, '*');
 			autocomplete = (int)(p-buffer) - 1;
 		}
+		else {
+			autocomplete = strlen(buffer);
+		}
 		
-		if( strcmp("attack",buffer)==0 ) {
+		if( strncmp("attack",buffer,autocomplete)==0 ) {
 			printf("Choose an attack\n");
 			fgets(buffer, 255, stdin);
 			*strchr(buffer,'\n') = '\0';
@@ -245,21 +248,27 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 			}
 		}
 		else if( strncmp("use item",buffer,autocomplete)==0 ) {
-			 printf("Player selected use item");
-			 print_inv(player_items);
-			 printf("Choose an Item\n");
-				fgets(buffer, 255, stdin);
-				*strchr(buffer,'\n') = '\0';
-				if( strchr(buffer,'*')!=NULL ) {
-					p = strchr(buffer, '*');
-					autocomplete = (int)(p-buffer) - 1;
-				use_item(&buffer, autocomplete, &player_items, &playerhealth, &enemyhealth, &playerattackpower)'
+			printf("Player selected use item");
+			print_inv(player_items);
+			printf("Choose an Item\n");
+			
+			fgets(buffer, 255, stdin);
+			*strchr(buffer,'\n') = '\0';
+			if( strchr(buffer,'*')!=NULL ) {
+				p = strchr(buffer, '*');
+				autocomplete = (int)(p-buffer) - 1;
+			}
+			else {
+				autocomplete = strlen(buffer);
+			}
+			
+			use_item(buffer, autocomplete, &player_items, &playerhealth, &enemyhealth, &playerattackpower);
 		}
 		else if( strncmp("get item",buffer,autocomplete)==0 ) {
 				obtain_item(player_items);
 		}
 		else if( strncmp("heal",buffer,autocomplete)==0 ) {
-			playerhealth = playerhealth + (.2*healpower);
+			playerhealth = playerhealth + 0.2*healpower);
 		}
 		else (
 			printf("Player's confused...\n");
@@ -279,7 +288,7 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 		
 	} //close turns loop
 
-	
+	*playerhealth_p = playerhealth;
 	
 }  //close battle function
 
@@ -287,7 +296,7 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 //prints item obtained to screen
 //equal chance of getting anything
 //if first time calling function, make first_call = 1; otherwise 0
-void obtain_item(int** player_items, int first_call) {
+void obtain_item(int** player_items) {
 	
 	int pc_boost_item = 33;
 	int pc_heal_item = 33;
@@ -298,14 +307,6 @@ void obtain_item(int** player_items, int first_call) {
 	int item_type;
 	int obtained = 0;
 	int i, j;
-	
-	if( first_call ) {
-		for(i=0; i<3; i++) {
-			for(j=0; j<5; j++) {
-				player_items[i][j] = -1;
-			}
-		}
-	}
 	
 	//generate item
 	if( r<pc_boost_item ) {
@@ -390,7 +391,7 @@ void use_item(char* input, int autocomplete, int** player_items, int* phealth, i
 							player_items[i][j] = -1;
 							*patk = *patk + boostitem_effects[item];
 							printf("Player injected some %s!\n", boostitem_names[item]);
-							printf("The power nutrition empowers you!\n")
+							printf("The power of nutrition empowers you!\n");
 							printf("Attack boosted by %i.\n", boostitem_effects[item]);
 							resolved = 1;
 						}
@@ -400,7 +401,7 @@ void use_item(char* input, int autocomplete, int** player_items, int* phealth, i
 							player_items[i][j] = -1;
 							*phealth = *phealth + healitem_effects[item];
 							printf("Player drank some %s!\n", healitem_names[item]);
-							printf("You can feel drugs numbing the pain.\n")
+							printf("You can feel drugs numbing the pain.\n");
 							printf("Health restored by %i.\n", healitem_effects[item]);
 							resolved = 1;
 						}
@@ -410,7 +411,7 @@ void use_item(char* input, int autocomplete, int** player_items, int* phealth, i
 							player_items[i][j] = -1;
 							*ehealth = *ehealth + dmgitem_effects[item];
 							printf("Player fired some %s!\n", dmgitem_names[item]);
-							printf("The enemy explodes!\n")
+							printf("The enemy explodes!\n");
 							printf("Enemy lost %i health.\n", healitem_effects[item]);
 							resolved = 1;
 						}
