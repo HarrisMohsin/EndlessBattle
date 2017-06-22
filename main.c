@@ -148,9 +148,9 @@ while (1) {
 	}
 }
 
-star_kill(boostitem_names);
-star_kill(healitem_names);
-star_kill(dmgitem_names);
+kill_star(boostitem_names);
+kill_star(healitem_names);
+kill_star(dmgitem_names);
 return(0);
 
 } //close main function
