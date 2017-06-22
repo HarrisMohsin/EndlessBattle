@@ -51,11 +51,13 @@ int main (void) {
 //Variables//
 char* playername;
 int playerhealth;
+int playerattackpower;
 int healpower;
 int score;
 int player_items[3][5]; //1st row boost items; 2nd heal; 3rd dmgitems 
 char buffer[256];
 int startinput;
+int i, j;
 
 //Game Setup//
 printf("Welcome to EndlessBattle!\n");
@@ -194,7 +196,7 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 	int enemyhealth;
 	int enemyattackpower;
 	char* playerdecision;
-	const char const moves[][] = { 
+	const char* const moves[] = { 
 		"attack",
 		"use item",
 		"get item",
@@ -205,8 +207,9 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 		 "swingattack"
 		};
 	int playerhealth = *playerhealth_p;
+	char buffer[256];
 	char* p;
-	int autocomplete = -1;
+	int autocomplete;
 	
 	//Player obtains item//
 	//player uses item//
@@ -262,15 +265,15 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 				autocomplete = strlen(buffer);
 			}
 			
-			use_item(buffer, autocomplete, &player_items, &playerhealth, &enemyhealth, &playerattackpower);
+			use_item(buffer, autocomplete, player_items, &playerhealth, &enemyhealth, &playerattackpower);
 		}
 		else if( strncmp("get item",buffer,autocomplete)==0 ) {
 				obtain_item(player_items);
 		}
 		else if( strncmp("heal",buffer,autocomplete)==0 ) {
-			playerhealth = playerhealth + 0.2*healpower);
+			playerhealth = playerhealth + 0.2*healpower;
 		}
-		else (
+		else {
 			printf("Player's confused...\n");
 		}
 		
