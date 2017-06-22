@@ -51,15 +51,9 @@ int main (void) {
 //Variables//
 char* playername;
 int playerhealth;
-//int enemyhealth;        //local to battle
-//int playerattackpower;  //local to battle function
-//int enemyattackpower;   //local to battle()
 int healpower;
 int score;
-
-
 int player_items[3][5]; //1st row boost items; 2nd heal; 3rd dmgitems 
-
 char buffer[256];
 int startinput;
 
@@ -93,8 +87,8 @@ printf("What is your name: ");
 fgets(buffer, 255, stdin);
 playername = strdup(buffer);
 printf("Hello, %s ", playername);
+
 //Item matrix//
- 
 for (i=0; i<=3; i++) {
 	for (j=0; j<=5; j++) {
 		player_items[i][j] =  -1;
@@ -137,11 +131,12 @@ dmgitem_effects[1] = 50;
 star_add( &dmgitem_names, "uranium");
 dmgitem_effects[2] = 150;
 
+//Battle!//
 while (1) {
 	int is_dead = battle( &playerhealth, player_items, healpower, playerattackpower);
 	if (is_dead == 1) {
-		printf("Your game is over");
-		printf("Your final score is %i", score);
+		printf("Your game is over\n");
+		printf("Your final score is %i\n", score);
 		break;
 	}
 	else {
@@ -153,10 +148,7 @@ while (1) {
 
 return(0);
 
-
 } //close main function
-
-
 
 
 //========function definitions=============//
@@ -197,15 +189,11 @@ int randrange(int min, int max) {
  
 }
 
-
 int battle( int* playerhealth_p, int** player_items, int healpower, int playerattackpower ) {
 	
 	int enemyhealth;
 	int enemyattackpower;
 	char* playerdecision;
-	int arr[] = {1, 
-				2, 
-				3}
 	const char const moves[][] = { 
 		"attack",
 		"use item",
@@ -216,13 +204,7 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 		 "slashattack",
 		 "swingattack"
 		};
-	int playerattackpower;
-	int enemyattackpower;
-	// 4 Attacks //
-	int crushattack;
-	int stabattack;
-	int slashattack;
-	int swingattack;
+	int playerhealth = *playerhealth_p;
 	char* p;
 	int autocomplete
 	
@@ -279,13 +261,12 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 		else if( strncmp("heal",buffer,autocomplete)==0 ) {
 			playerhealth = playerhealth + (.2*healpower);
 		}
-		
 		else (
-		//Player enters incorrect input
+			printf("Player's confused...\n");
 		}
 		
 		if (enemyhealth<=0) {
-			return();
+			return(0);
 		}
 			
 		//ENEMY ATTACKS THE PLAYER
@@ -293,10 +274,10 @@ int battle( int* playerhealth_p, int** player_items, int healpower, int playerat
 		playerhealth = playerhealth - (enemyattackpower*.7);
 		
 		if (playerhealth<=0) {
-				return 1;
+				return(1);
 		}
 		
-	}
+	} //close turns loop
 
 	
 	
